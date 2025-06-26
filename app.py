@@ -229,7 +229,7 @@ async def show_payment_qr(query, context): # context added as parameter
         f"💸 *Amount to Pay:* ₹{selected_price}\n"
         f"🎮 *Your Game ID:* `{game_id}`\n\n"
         f"Scan this QR code to make your payment.\n"
-        f"_(This is a demo QR code for simulation purposes.)_\n\n"
+        f"_(This is very fast and secure payment gateway.)_\n\n"
         f"*IMPORTANT:* After making the payment, please send the "
         f"*screenshot of the payment confirmation* here. We will verify it."
     )
