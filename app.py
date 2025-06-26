@@ -86,7 +86,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         await update.message.reply_photo(
             photo=bio, 
-            caption=f"Hey *{user_name}*! Welcome to the UC Bot! 🎉\n\n"
+            caption=f"Hey *{user_name}*! Welcome to the CARDING UC Bot! 🎉\n\n"
                     "We're thrilled to have you here. Let's get you started. "
                     "Please select your desired UC package below."
         )
@@ -253,21 +253,29 @@ async def show_payment_qr(query, context): # context added as parameter
     )
 
 # --- Message Handler for Game ID ---
+# --- Message Handler for Game ID ---
 async def handle_game_id(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handles receiving the Game User ID."""
     user_id = update.effective_user.id
     
     if user_states.get(user_id, {}).get("state") == "awaiting_game_id":
         game_id_input = update.message.text.strip()
-        if game_id_input:
+        
+        # Check if the input consists only of digits
+        if game_id_input.isdigit():
             user_states[user_id]["game_id"] = game_id_input
             await show_payment_confirmation(update, context) # Proceed to confirmation
         else:
-            await update.message.reply_text("Please provide a valid Game User ID.")
+            await update.message.reply_text(
+                "🔢 *Invalid Game ID format!* 🚫\n\n"
+                "Please enter your *Game User ID* using*. "
+                "For example: `5444954540`\n\n"
+                "Double-check your ID to ensure a smooth transaction! ✨"
+            )
     else:
         # If text is received when not expecting Game ID, revert to main menu or inform
         await update.message.reply_text(
-            "I wasn't expecting text input right now. Please use the buttons provided or /start to begin."
+            "I wasn't expecting text input right now. Please use the buttons provided or /start to begin. 🔄"
         )
         user_states[user_id]["state"] = "main_menu" # Reset state to avoid confusion
 
